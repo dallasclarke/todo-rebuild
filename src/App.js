@@ -14,6 +14,12 @@ class App extends Component {
 
   render() {
     <Todo /> 
+
+    return (
+      <div style={{textAlign: "center", marginTop: "15%"}}>
+        <Todo />
+      </div>
+    )
   }
 }
 
