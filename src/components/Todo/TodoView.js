@@ -10,7 +10,22 @@ const TodoView = ({
   appHandleEditTodo,
   appHandleEditTodoOnChange,
   editTodoValue,
+  appHandleEditSubmit,
+  disabledEditButton,
 }) => {
+    const todoViewHandleDeleteButton = (id) => {
+        appHandleDeleteTodo(id)
+    };
+
+    const todoEditHandleButton = (id) => {
+        appHandleEditTodo(id);
+    };
+
+    const todoEditSubmitButton = (id) => {
+        appHandleEditSubmit(id);
+    };
+
+
   return (
     <ul style={{ listStyle: "none" }}>
       {todoList.map(({ id, todo, editToggle }) => {
