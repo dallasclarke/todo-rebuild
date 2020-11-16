@@ -1,5 +1,5 @@
 import React from "react";
-// import { arrayOf, shape, number, string } from "prop-type";
+import { arrayOf, shape, number, string } from "prop-types";
 import "./TodoView.css";
 import Span from "../shared/Span";
 
@@ -13,18 +13,17 @@ const TodoView = ({
   appHandleEditSubmit,
   disabledEditButton,
 }) => {
-    const todoViewHandleDeleteButton = (id) => {
-        appHandleDeleteTodo(id)
-    };
+  const todoViewHandleDeleteButton = (id) => {
+    appHandleDeleteTodo(id);
+  };
 
-    const todoEditHandleButton = (id) => {
-        appHandleEditTodo(id);
-    };
+  const todoEditHandleButton = (id) => {
+    appHandleEditTodo(id);
+  };
 
-    const todoEditSubmitButton = (id) => {
-        appHandleEditSubmit(id);
-    };
-
+  const todoEditSubmitButton = (id) => {
+    appHandleEditSubmit(id);
+  };
 
   return (
     <ul style={{ listStyle: "none" }}>
@@ -32,10 +31,16 @@ const TodoView = ({
         return (
           <li key={id} style={{ margin: 20 }}>
             {showEditInput && editToggle ? (
-              <input type="text" name="editTodoValue" value={editTodoValue} />
+              <input
+                type="text"
+                name="editTodoValue"
+                value={editTodoValue}
+                onChange={appHandleEditTodoOnChange}
+              />
             ) : (
               <Span value={todo} />
             )}
+
             {showEditInput && editToggle ? (
               <Span
                 value={"Update"}
@@ -53,14 +58,15 @@ const TodoView = ({
                 disabledButton={disabledEditButton}
               />
             )}
-                <Span
-                    value={"Delete"}
-                    id={id}
-                    onClick={todoViewHandleDeleteButton}
-                    className={`todo-button-shared-style delete-button`}
-                    disabledClass="disabled"
-                    disabledButton={disabledEditButton}
-                /> 
+
+            <Span
+              value={"Delete"}
+              id={id}
+              onClick={todoViewHandleDeleteButton}
+              className={`todo-button-shared-style delete-button`}
+              disabledClass="disabled"
+              disabledButton={disabledEditButton}
+            />
           </li>
         );
       })}
@@ -68,13 +74,13 @@ const TodoView = ({
   );
 };
 
-// TodoView.propTypes = {
-//     todoList: arrayOf(
-//         shape({
-//             id: string.isRequired,
-//             todo: string.isRequired,
-//         })
-//     )
-// };
+TodoView.propTypes = {
+  todoList: arrayOf(
+    shape({
+      id: string.isRequired,
+      todo: string.isRequired,
+    })
+  ),
+};
 
 export default TodoView;

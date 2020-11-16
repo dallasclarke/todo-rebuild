@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import validator from "validator";
 import Todo from "./components/Todo/Todo";
+import Message from "./components/shared/Message";
 
 class App extends Component {
   state = {
-    isAuth: false,
+    isAuth: true,
     email: "",
     password: "",
     errorMessage: "",
@@ -114,11 +115,61 @@ class App extends Component {
   };
 
   render() {
-    <Todo />;
+    const {
+      isAuth,
+      errorMessage,
+      isError,
+      isPasswordError,
+      isPasswordErrorMessage,
+      isSubmitError,
+      submitErrorMessage,
+      isSuccessMessage,
+      successMessage,
+    } = this.state;
+
+    let showTodoComponent = isAuth ? (
+      <Todo />
+    ) : (
+      <form onSubmit={this.handleOnSubmit}>
+        {" "}
+        {isError ? (
+          <Message className={"error-message"} message={errorMessage} />
+        ) : (
+          ""
+        )}
+        {isSubmitError ? (
+          <div className="error-message">{submitErrorMessage}</div>
+        ) : (
+          ""
+        )}
+        {isSuccessMessage ? (
+          <Message className={"success-message"} message={successMessage} />
+        ) : (
+          ""
+        )}
+        <input
+          type="text"
+          placeholder="enter email"
+          name="email"
+          onChange={this.handleOnChange}
+          value={this.state.email}
+        />{" "}
+        <br />
+        {isPasswordError ? <div>{isPasswordErrorMessage}</div> : ""}
+        <input
+          type="text"
+          placeholder="enter password"
+          name="password"
+          onChange={this.handleOnChangePassword}
+          value={this.state.password}
+        />{" "}
+        <br /> <button>Sign up</button>
+      </form>
+    );
 
     return (
       <div style={{ textAlign: "center", marginTop: "15%" }}>
-        <Todo />
+        {showTodoComponent}
       </div>
     );
   }
