@@ -97,28 +97,34 @@ export default class Todo extends Component {
   };
 
   appHandleEditTodo = (targetID) => {
-      let copiedArray = [...this.state.todoList];
-      let editTodoValue;
+    let copiedArray = [...this.state.todoList];
+    let editTodoValue;
 
-      copiedArray.map((item) => {
-          if (item.id === targetID) {
-              item.editToggle = true;
-              editTodoValue = item.todo;
-          }
-      });
-      
-      this.setState({
-          todoList: copiedArray,
-          showEditInput: true,
-          editTodoValue: editTodoValue,
-          disabledEditButton: true,
-      });
+    copiedArray.map((item) => {
+      if (item.id === targetID) {
+        item.editToggle = true;
+        editTodoValue = item.todo;
+      }
+    });
+
+    this.setState({
+      todoList: copiedArray,
+      showEditInput: true,
+      editTodoValue: editTodoValue,
+      disabledEditButton: true,
+    });
+  };
+
+  appHandleEditTodoOnChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   appHandleEditSubmit = (event) => {
-      this.setState({
-          [event.target.name]: event.target.value,
-      });
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   render() {
@@ -131,6 +137,38 @@ export default class Todo extends Component {
       disabledEditButton,
     } = this.state;
 
-    return <TodoView todoList={todoList} />;
+    return (
+      <div style={{ textAlign: "center" }}>
+        {showErrorMessage ? (
+          <div style={{ color: "red", marginTop: 10 }}>
+            Please, enter something todo!
+          </div>
+        ) : null}
+        <input
+          onChange={this.handleInputChange}
+          style={{ marginTop: 20 }}
+          type="text"
+          name="todoValue"
+          value={this.state.todoValue}
+        />{" "}
+        <button onClick={this.handleSubmit}>Add</button>
+        {showNoTodosMessages ? (
+          <div style={{ marginTop: 10, color: "blue" }}>
+            Please add something todo!
+          </div>
+        ) : (
+          <TodoView
+            todoList={todoList}
+            appHandleDeleteTodo={this.appHandleDeleteTodo}
+            showEditInput={showEditInput}
+            appHandleEditTodo={this.appHandle}
+            editTodoValue={editTodoValue}
+            appHandleEditTodoOnChange={this.appHandleEditTodoOnChange}
+            appHandleEditSubmit={this.appHandleEditSubmit}
+            disabledEditButton={disabledEditButton}
+          />
+        )}
+      </div>
+    );
   }
 }

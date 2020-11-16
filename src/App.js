@@ -19,7 +19,7 @@ class App extends Component {
       <div style={{textAlign: "center", marginTop: "15%"}}>
         <Todo />
       </div>
-    )
+    );
   }
 }
 
