@@ -53,6 +53,14 @@ const TodoView = ({
                 disabledButton={disabledEditButton}
               />
             )}
+                <Span
+                    value={"Delete"}
+                    id={id}
+                    onClick={todoViewHandleDeleteButton}
+                    className={`todo-button-shared-style delete-button`}
+                    disabledClass="disabled"
+                    disabledButton={disabledEditButton}
+                /> 
           </li>
         );
       })}
