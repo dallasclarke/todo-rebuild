@@ -29,6 +29,19 @@ export default class Todo extends Component {
     disabledEditButton: false,
   };
 
+  handleInputChange = (event) => {
+
+    if (this.state.showErrorMessage) {
+        this.setState({
+            showErrorMessage: false,
+        });
+    }
+
+    this.setState({
+        [event.target.name]: event.target.value,
+    });
+  };
+
   render() {
       const {
           todoList,

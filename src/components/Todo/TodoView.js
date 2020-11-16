@@ -1,12 +1,16 @@
 import React from "react";
-import { arrayOf, shape, number, string } from "prop-type";
+// import { arrayOf, shape, number, string } from "prop-type";
 import "./TodoView.css";
+import Span from "../shared/Span";
 
-const TodoView = ({ todoList, showEditInput, editTodoValue }) => {
-  
-  
-  
-  
+const TodoView = ({
+  todoList,
+  appHandleDeleteTodo,
+  showEditInput,
+  appHandleEditTodo,
+  appHandleEditTodoOnChange,
+  editTodoValue,
+}) => {
   return (
     <ul style={{ listStyle: "none" }}>
       {todoList.map(({ id, todo, editToggle }) => {
@@ -17,11 +21,37 @@ const TodoView = ({ todoList, showEditInput, editTodoValue }) => {
             ) : (
               <Span value={todo} />
             )}
+            {showEditInput && editToggle ? (
+              <Span
+                value={"Update"}
+                id={id}
+                onClick={todoEditSubmitButton}
+                className="todo-button-shared-style edit-button"
+              />
+            ) : (
+              <Span
+                value={"Edit"}
+                id={id}
+                onClick={todoEditHandleButton}
+                className={`todo-button-shared-style edit-button`}
+                disabledClass="disabled"
+                disabledButton={disabledEditButton}
+              />
+            )}
           </li>
         );
       })}
     </ul>
   );
 };
+
+// TodoView.propTypes = {
+//     todoList: arrayOf(
+//         shape({
+//             id: string.isRequired,
+//             todo: string.isRequired,
+//         })
+//     )
+// };
 
 export default TodoView;
