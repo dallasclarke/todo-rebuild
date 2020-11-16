@@ -28,4 +28,23 @@ export default class Todo extends Component {
     editTodoValue: "",
     disabledEditButton: false,
   };
+
+  render() {
+      const {
+          todoList,
+          showErrorMessage,
+          showNoTodosMessages,
+          showEditInput,
+          editTodoValue,
+          disabledEditButton,
+      } = this.state;
+
+      return (
+
+
+        <TodoView
+            todoList={todoList}
+        /> 
+      );
+  }
 }
